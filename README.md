@@ -2,7 +2,7 @@
 Perform face recognition in video stream for registered members. This repo is based on https://www.pyimagesearch.com/2018/09/24/opencv-face-recognition/
 
 # Installation
-## Prerequisite
+## Pre-requisite
 The python scripts are written for Python 3 only and requires the following modules <br>
 1. opencv-python
 2. imutils
@@ -10,8 +10,30 @@ The python scripts are written for Python 3 only and requires the following modu
 4. numpy
 5. tkinter
 
-## How to run
+## Clone this repo
+`$ git clone https://github.com/newTypeGeek/face-recognition`
+
+# How to run
 `$ python3 main.py`
+
+Then you will see a GUI as shown below with `Total number of member = 0`.<br>
+
+<img src="https://github.com/newTypeGeek/face-recognition/blob/master/gui.png" width="360">
+
+1. **Registration** button registers a member given the valid *First Name* and *Last Name* input. Next, user is asked to
+   take up to 10 photos to complete the registration. The photos would be stored in `dataset/<your_name>`. Then, the `Total number of member` in GUI should be incremented by one.
+
+2. **Add photos** button takes additional for an existing member given the First Name and Last Name input.
+
+3. **Face Recognition (method)** button starts performing face recognition from a video stream using the *method*.
+
+4. **Information** button shows the reference of this program.
+
+5. **Restart** button clears and re-generates all the `embeddings.pickle` and `face_recognition_model` files, based on the current images in the `dataset` directory.
+*This button is useful if user adds or delete photos without interacting with the GUI.
+This procedure also occurs when the program starts (i.e. $ python3 main.py)*
+
+6. **Quit** button closes the program immediately.
 
 
 
