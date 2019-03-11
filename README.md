@@ -6,7 +6,7 @@ When an video frame is fed into the system, it first performs **face detection**
 
 Then the cropped face images are passed to another pre-trained CNN model to perform **face encoding** (FaceNet architecture trained by OpenFace) and returns a list of 128-dimension vectors for each face.<br>
 
-Finally, **face recognition** is performed on the 128-dimension vectors using various methods. In this repo, we use machine learning methods including Support Vector Machine (SVM), k-Nearest Neighbours (k-NN), and Random Forest. Moreover, we also use non-machine learning methods -- Pearson correlation, Cosine similarity, L2, and L1 distance.
+Finally, **face recognition** is performed on the 128-dimension vectors using various methods. In this repo, we use machine learning methods including **Support Vector Machine (SVM)**, **k-Nearest Neighbours (k-NN)**, and **Random Forest**. Moreover, we also use non-machine learning methods -- **Pearson correlation**, **Cosine similarity**, **L2 distance**, and **L1 distance**.
 
 # Installation
 ## Pre-requisite
