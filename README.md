@@ -1,8 +1,21 @@
 # face-recognition
 Perform face recognition in video stream for registered members. This repo is based on https://www.pyimagesearch.com/2018/09/24/opencv-face-recognition/
 
+# Installation
+## Prerequisite
+The python scripts are written for Python 3 only and requires the following modules <br>
+1. opencv-python
+2. imutils
+3. sklearn
+4. numpy
+5. tkinter
 
-## Understand the files and directories
+## How to run
+`$ python3 main.py`
+
+
+
+## Understanding the files and directories
 1. `dataset` <br> 
 It consists of all the images from all registered members + `unknown`.
 All images are named from `0000` to `9999`. At the beginning, you should only see the following
