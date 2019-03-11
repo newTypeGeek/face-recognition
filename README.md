@@ -1,5 +1,12 @@
 # face-recognition
-Perform face recognition in video stream for registered members. This repo is based on https://www.pyimagesearch.com/2018/09/24/opencv-face-recognition/
+Perform face recognition in video stream for registered members. This repo is based on https://www.pyimagesearch.com/2018/09/24/opencv-face-recognition/<br>
+
+The face recognition pipeline can be summarized as follow. <br>
+When an video frame is fed into the system, it first performs **face detection** using a pre-trained Convolution Neural Network (CNN) model (ResNet + SSD) and returns a set of Region Of Interest (ROI). <br>
+
+Then the cropped face images are passed to another pre-trained CNN model to perform **face encoding** (FaceNet architecture trained by OpenFace) and returns a list of 128-dimension vectors for each face.<br>
+
+Finally, **face recognition** is performed on the 128-dimension vectors using various methods. In this repo, we use machine learning methods including Support Vector Machine (SVM), k-Nearest Neighbours (k-NN), and Random Forest. Moreover, we also use non-machine learning methods -- Pearson correlation, Cosine similarity, L2, and L1 distance.
 
 # Installation
 ## Pre-requisite
