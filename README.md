@@ -11,11 +11,28 @@ The face recognition pipeline can be summarized as follow. <br>
 # Installation
 ## Pre-requisite
 The python scripts are written for Python 3 only and requires the following modules <br>
-1. opencv-python
-2. imutils
-3. sklearn
-4. numpy
+1. numpy
+2. sklearn
+3. opencv-python
+4. imutils
 5. tkinter
+
+Install the first 4 modules using `pip`
+```
+$ pip install numpy
+$ pip install sklearn
+$ pip install opencv-python
+$ pip install imutils
+```
+
+Installation of tkinter is a bit tricky since it is not included in `pip`. But if you are using Anaconda Python distribution, you should have it installed already. Otherwise check out these posts.
+
+### Mac
+<https://stackoverflow.com/questions/36760839/why-my-python-installed-via-home-brew-not-include-tkinter>
+
+### Linux
+<https://stackoverflow.com/questions/4783810/install-tkinter-for-python>
+
 
 ## Clone this repo
 `$ git clone https://github.com/newTypeGeek/face-recognition`
