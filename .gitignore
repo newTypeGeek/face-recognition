@@ -1,0 +1,8 @@
+# Ignore Mac system files
+.DS_store
+
+# Ignore pycache directories
+__pycache__
+
+# Ignore pickle files
+*.pickle
