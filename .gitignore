@@ -4,5 +4,12 @@
 # Ignore pycache directories
 __pycache__
 
+# Ignore .pyc files
+*.pyc
+
 # Ignore pickle files
 *.pickle
+
+# Ignore dataset/* except dataset/unknown
+dataset/*
+!dataset/unknown

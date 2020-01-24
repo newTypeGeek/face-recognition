@@ -59,43 +59,44 @@ This procedure also occurs when the program starts (i.e. `$ python3 main.py`)*
 
 6. **Quit** button closes the program immediately.
 
-## Understanding the scripts
-1. `image_to_vector.py`<br>
-It is called when the program just starts (`$ python3 main.py`) or **Restart** button is pressed or **Registration** button is pressed and completed or  **Add photos** button is pressed and completed. This script consists of function that convert images in `dataset` to 128-d vectors and stored in the corresponding directories under `embeddings/data`.
+## AN UPDATED README IS IN PROGRESS
 
-2. `load_cnn.py` <br>
-It consists of functions to load the pre-trained CNN models for face detection and face encoding.
+~~## Understanding the scripts~~
+~~1. `image_to_vector.py`~~<br>
+~~It is called when the program just starts (`$ python3 main.py`) or **Restart** button is pressed or **Registration** button is pressed and completed or  **Add photos** button is pressed and completed. This script consists of function that convert images in `dataset` to 128-d vectors and stored in the corresponding directories under `embeddings/data`.~~
 
-3. `load_data.py` <br>
-It consists of functions to load all the 128-d vectors, and other trained machine learning models (SVM, k-NN, Random Forest).
+~~2. `load_cnn.py`~~ <br>
+~~It consists of functions to load the pre-trained CNN models for face detection and face encoding.~~
 
-4. `main.py`<br>
-It is the main script, setting up the GUI as shown above.
+~~3. `load_data.py`~~ <br>
+~~It consists of functions to load all the 128-d vectors, and other trained machine learning models (SVM, k-NN, Random Forest).~~
 
-5. `pre_recognition.py`<br>
-It consists of functions for face detection and face encoding.
+~~4. `main.py`~~<br>
+~~It is the main script, setting up the GUI as shown above.~~
 
-6. `recognition.py` <br>
-It consists of various methods for actual face recognition using 128-d vectors. Methods include SVM, k-NN, Random Forest, Pearson correlation, Cosine similarity, L2 distance, and L1 distance. This script is called when **Face Recognition (method)** button is pressed.
+~~5. `pre_recognition.py`~~<br>
+~~It consists of functions for face detection and face encoding.~~
 
-7. `recognize_video.py` <br>
-It turns on the camera and start face recognition from video stream when **Face Recognition (method)** button is pressed. Detected faces would be surrounded by red bounding boxes, with the identity and score displayed.
+~~6. `recognition.py`~~ <br>
+~~It consists of various methods for actual face recognition using 128-d vectors. Methods include SVM, k-NN, Random Forest, Pearson correlation, Cosine similarity, L2 distance, and L1 distance. This script is called when **Face Recognition (method)** button is pressed.~~
 
-8. `take_photos.py` <br>
-It turns on the camera for taking photos *manually* when a new member is registered or adding photos to an existing member. The photos would be stored in `dataset/<your_name>` directory. This script is called when **Registration** button is pressed and completed or **Add photos** is pressed and completed.
+~~7. `recognize_video.py`~~ <br>
+~~It turns on the camera and start face recognition from video stream when **Face Recognition (method)** button is pressed. Detected faces would be surrounded by red bounding boxes, with the identity and score displayed.~~
 
-9. `training.py` <br>
-It consists of three functions to train different machine learning models (i.e. SVM, k-NN, and Random Forest). These models are trained (or re-trained) only if *Total number of member > 0*. The trained model would be saved in `face_recognition_model/<method>` directory. These trained model would be used for face recognition from a video stream.
-This script is called when the program just starts (`$ python3 main.py`) or **Restart** button is pressed or **Registration** button is pressed and completed or **Add photos** button is pressed and completed. 
+~~8. `take_photos.py`~~ <br>
+~~It turns on the camera for taking photos *manually* when a new member is registered or adding photos to an existing member. The photos would be stored in `dataset/<your_name>` directory. This script is called when **Registration** button is pressed and completed or **Add photos** is pressed and completed.~~
+
+~~9. `training.py`~~ <br>
+~~It consists of three functions to train different machine learning models (i.e. SVM, k-NN, and Random Forest). These models are trained (or re-trained) only if *Total number of member > 0*. The trained model would be saved in `face_recognition_model/<method>` directory. These trained model would be used for face recognition from a video stream. This script is called when the program just starts (`$ python3 main.py`) or **Restart** button is pressed or **Registration** button is pressed and completed or **Add photos** button is pressed and completed.~~
 
 
-## Understanding the directories
-1. `dataset` <br> 
-It consists of all the images from all registered members + `unknown`.
-All images are named from `0000` to `9999`.
-At the beginning, you should only see the `unknown` directory.
-In this program `unknown` identity is required and it is not regarded as a member.
-The images are generated by some GANs.
+~~## Understanding the directories~~
+~~1. `dataset`~~ <br> 
+~~It consists of all the images from all registered members + `unknown`.~~
+~~All images are named from `0000` to `9999`.~~
+~~At the beginning, you should only see the `unknown` directory.~~
+~~In this program `unknown` identity is required and it is not regarded as a member.~~
+~~The images are generated by some GANs.~~
     ```
     dataset
     └── unknown
@@ -107,13 +108,12 @@ The images are generated by some GANs.
     ```
 
 
-2. `embeddings` <br>
-    It consists of the embedding model and data of 128-d vectors
-    - `embeddings.pickle` is the serialized Python dictionary with keys being the image paths, and values being 128-d vectors
-    - `embeddings/data/individual/<identity>/embeddings.pickle` stores the 128-d vectors
-      corresponds to that <identity>
-    - `embeddings/data/overall/embeddings.pickle` stores the 128-d vectors of ALL <identity>
-    - `openface_nn4.small2.v1.t7` is the pre-trained FaceNet CNN to extract 128-d vectors from a face
+~~2. `embeddings`~~ <br>
+    ~~It consists of the embedding model and data of 128-d vectors~~
+    - ~~`embeddings.pickle` is the serialized Python dictionary with keys being the image paths, and values being 128-d vectors~~
+    - ~~`embeddings/data/individual/<identity>/embeddings.pickle` stores the 128-d vectors corresponds to that <identity>~~
+    - ~~`embeddings/data/overall/embeddings.pickle` stores the 128-d vectors of ALL <identity>~~
+    - ~~`openface_nn4.small2.v1.t7` is the pre-trained FaceNet CNN to extract 128-d vectors from a face~~
     ```
     embeddings
     ├── data
@@ -127,10 +127,10 @@ The images are generated by some GANs.
     ```
     <br><br>
 
-3. `face_detection_model`<br>
-    It consists of the pre-trained model which is used to locate the face candidates from an image
-    - `deploy.prototxt` is the architecture of the CNN.
-    - `res10_300x300_ssd_iter_140000.caffemodel` is the pre-trained weights of this CNN.
+~~3. `face_detection_model`~~<br>
+    ~~It consists of the pre-trained model which is used to locate the face candidates from an image~~
+    - ~~`deploy.prototxt` is the architecture of the CNN.~~
+    - ~~`res10_300x300_ssd_iter_140000.caffemodel` is the pre-trained weights of this CNN.~~
     ```
     face_detection_model
     ├── deploy.prototxt
@@ -138,22 +138,22 @@ The images are generated by some GANs.
     ```
     <br><br>
 
-4. `face_recognition_model`<br>
-    It *will* consist of trained face recognition model
-    - `label.pickle` is the serialized encoding of the identity
-    - `model.pickle` is the serialized model<br>
+~~4. `face_recognition_model`~~<br>
+    ~~It *will* consist of trained face recognition model~~
+    - ~~`label.pickle` is the serialized encoding of the identity~~
+    - ~~`model.pickle` is the serialized model~~<br>
     ```
     face_recognition_model
     ├── knn
     ├── rf
     └── svm
     ```
-Rightnow, the sub-directories `knn` (k-Nearest Neighbour), `rf` (Random Forest), and `svm` (Support Vector Machine) are empty.
-The `label.pickle` and `model.pickle` files will be generated when the *Total number of member > 0*. <br><br>
+~~Rightnow, the sub-directories `knn` (k-Nearest Neighbour), `rf` (Random Forest), and `svm` (Support Vector Machine) are empty.
+The `label.pickle` and `model.pickle` files will be generated when the *Total number of member > 0*.~~ <br><br>
 
-5. `result`<br>
-    It consists of manually captured images when performing face recognition from video stream 
-    using various face recognition method. Rightnow, the sub-directories are empty.
+~~5. `result`~~<br>
+    ~~It consists of manually captured images when performing face recognition from video stream ~~
+   ~~ using various face recognition method. Rightnow, the sub-directories are empty.~~
     ```
     result
     ├── cosine

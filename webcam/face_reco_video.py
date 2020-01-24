@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 ######################
-# recognize_video.py #
+# face_reco_video.py #
 ######################
 
 
@@ -12,16 +12,18 @@ import imutils
 import pickle
 import cv2
 import os
+import sys
 
-import csv
+ROOT_DIR = os.path.abspath("../")
+sys.path.append(ROOT_DIR)
+from load_data import load_clf
+from load_data import load_vec
+from load_data import load_cnn
+from webcam import pre_recognition
+from webcam import recognition 
 
-import load_cnn
-import load_data
-import pre_recognition
-import recognition 
 
-
-def face_recognition(min_prob_filter, method):
+def face_reco_video(min_prob_filter, method):
     '''
     Perform face recognition from a video stream
 
@@ -36,35 +38,37 @@ def face_recognition(min_prob_filter, method):
 
 
     if method == "svm":
-        recognizer, le = load_data.svm()
+        recognizer, le = load_clf.load_svm()
         frame_name = "Face Recognition (Support Vector Machine)"
         print("\n////////// Face Recognition (Support Vector Machine) //////////")
+
     elif method == "knn":
-        recognizer, le = load_data.knn()
+        recognizer, le = load_clf.load_knn()
         frame_name = "Face Recognition (k-Nearest Neighbours)"
         print("\n////////// Face Recognition (k-Nearest Neighbours) //////////")
+
     elif method == "rf":
-        recognizer, le = load_data.rf()
+        recognizer, le = load_clf.load_rf()
         frame_name = "Face Recognition (Random Forest)" 
         print("\n////////// Face Recognition (Random Forest) //////////")
 
     elif method == "pearson":
-        vectors, labels = load_data.vector()
+        vectors, labels = load_vec.vector()
         frame_name = "Face Recognition (Pearson Correlation)"
         print("\n////////// Face Recognition (Pearson Correlation) //////////")
 
     elif method == "cosine":
-        vectors, labels = load_data.vector()
+        vectors, labels = load_vec.vector()
         frame_name = "Face Recognition (Cosine Similarity)"
         print("\n////////// Face Recognition (Cosine Similarity) //////////")
 
     elif method == "l2":
-        vectors, labels = load_data.vector()
+        vectors, labels = load_vec.vector()
         frame_name = "Face Recognition (L2 Distance)"
         print("\n ////////// Face Recognition (L2 Distance) //////////")
 
     elif method == "l1":
-        vectors, labels = load_data.vector()
+        vectors, labels = load_vec.vector()
         frame_name = "Face Recognition (L1 Distance)"
         print("\n////////// Face Recognition (L1 Distance) //////////")
 
@@ -242,10 +246,3 @@ def face_recognition(min_prob_filter, method):
     print("Max time elapsed to locate faces     {0:.4f} ms".format(max_locate_time*1000))
     print("Max time elapsed to extract vectors  {0:.4f} ms".format(max_vector_time*1000))
     print("Max time elapsed to recognize faces  {0:.4f} ms".format(max_recog_time*1000))
-
-
-
-
-
-
-

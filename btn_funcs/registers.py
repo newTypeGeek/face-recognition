@@ -1,10 +1,16 @@
 import os
+import sys
 import string
 from tkinter import messagebox
 
-import training
-import take_photos
-import image_to_vector
+ROOT_DIR = os.path.abspath("../")
+sys.path.append(ROOT_DIR)
+from image_embedding.gen_vec_register import gen_vec_register
+from image_embedding.gen_vec_add import gen_vec_add
+from train_clf.train_svm import train_svm
+from train_clf.train_knn import train_knn
+from train_clf.train_rf import train_rf
+from webcam.take_photos import take_photos
 
 
 def check_name(name, which):
@@ -88,7 +94,7 @@ def register(member, entry1, entry2, label):
             # Take photos now!
             messagebox.showinfo("How to take photos", "Press SPACEBAR to take photo\n (Max: 10 photos)\n\nTry to have different gesture / orientation when taking photos")
 
-            img_num = take_photos.take_photos(file_path)
+            img_num = take_photos(file_path)
 
             if img_num <= 0:
                 messagebox.showerror("Error", "No photos are taken!\n" + '"' + first_name + "  " + last_name + '"' + " is NOT registered as a member")
@@ -98,16 +104,16 @@ def register(member, entry1, entry2, label):
 
                 # Extract 128-d feature vectors from the new images
                 # and append to the pickle files
-                image_to_vector.gen_vector_register(full_name, 0.3)
+                gen_vec_register(full_name, 0.3)
 
                 # Train SVM from all 128-d vectors
-                training.svm()
+                train_svm()
 
                 # Train KNN from all 128-d vectors
-                training.knn()
+                train_knn()
 
                 # Train Random Forest from all 128-d vectors
-                training.rf()
+                train_rf()
 
                 # Update the number of registered member
                 member_num += 1
@@ -119,6 +125,7 @@ def register(member, entry1, entry2, label):
         messagebox.showerror("Error", "This name has been registered")
         print("Duplicated registration")
         print("Registration rejected\n")
+
 
 
 
@@ -165,7 +172,7 @@ def add_photos(entry1, entry2):
             # Take photos now!
             messagebox.showinfo("How to take photos", "Press SPACEBAR to take photo\n (Max: 10 photos)\n\nTry to have different gesture / orientation when taking photos")
 
-            img_num = take_photos.take_photos(file_path)
+            img_num = take_photos(file_path)
 
             if img_num <= 0:
                 messagebox.showerror("Error", "No photos are added to " + '"' + first_name + "  " + last_name + '"')
@@ -174,16 +181,16 @@ def add_photos(entry1, entry2):
 
                 # Extract 128-d feature vectors from the new images
                 # and append to the pickle files
-                image_to_vector.gen_vector_add(full_name, 0.3)
+                gen_vec_add(full_name, 0.3)
 
                 # Train SVM from all 128-d vectors
-                training.svm()
+                train_svm()
 
                 # Train KNN from all 128-d vectors
-                training.knn()
+                train_knn()
 
                 # Train Random Forest from all 128-d vectors
-                training.rf()
+                train_rf()
 
                 print("##### Photos Added ######\n")
 

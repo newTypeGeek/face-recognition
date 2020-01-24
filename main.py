@@ -1,31 +1,17 @@
 #!/usr/bin/env python3
 
-##############
+#############
 #  main.py  #
-##############
+#############
 
 # Uncomment these lines if you are planning to 
 # build a standalone executable using PyInstaller
 # import multiprocessing
 # multiprocessing.freeze_support()
 
-
-
 import tkinter as tk
-from tkinter import messagebox
-import string
-import os
 from functools import partial
-
-import training
-import image_to_vector
-import take_photos
-import recognize_video
-
-import face_reco
-import control
-import registers
-
+from btn_funcs import control, registers, face_reco
 
 
 class Member:
@@ -37,21 +23,17 @@ class Member:
         self.num = 0
 
 
-
-if __name__ == "__main__":
-    
+if __name__ == "__main__": 
     # Create the GUI window
     window = tk.Tk()
     window.title("Face Recognition Demo")
     window.geometry('600x380+250+200')
 
-    # Number of member
-    # member_num = 0
-
+    # Create member object,
+    # just to store number of registered member
     member = Member()
 
     # Initialization
-    # initialization(member)
     control.start(member)
 
     # First name input bar
@@ -110,8 +92,4 @@ if __name__ == "__main__":
               command=window.quit).grid(row=9, column=3, sticky=tk.E, pady=4)
 
 
-
     window.mainloop()
-
-
-

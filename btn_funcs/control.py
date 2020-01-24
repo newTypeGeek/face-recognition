@@ -1,6 +1,14 @@
-import image_to_vector
-import training
 from tkinter import messagebox
+
+import os
+import sys
+
+ROOT_DIR = os.path.abspath("../")
+sys.path.append(ROOT_DIR)
+from image_embedding.gen_vec_start import gen_vec_start
+from train_clf.train_svm import train_svm
+from train_clf.train_knn import train_knn
+from train_clf.train_rf import train_rf
 
 
 def info():
@@ -14,24 +22,21 @@ def info():
     messagebox.showinfo("Information", reference)
 
 
-
-
-
 def start(member):
     '''
     It is triggered when the program start:
         Clean all 128-d vectors from storage and
         Extract 128-d vectors from ALL photos
     '''
-    member_num = image_to_vector.gen_vector_initialize(0.3)
+    member_num = gen_vec_start(0.3)
 
     # -1 is required, since one of the identities is unknown
     member.num = member_num - 1
 
     if member.num > 0:
-        training.svm()
-        training.knn()
-        training.rf()
+        train_svm()
+        train_knn()
+        train_rf()
 
 
 def restart(member, label):
@@ -45,7 +50,7 @@ def restart(member, label):
     re_init = messagebox.askquestion("Re-Initialization", "Remove all machine learning files in `output` directory\nRe-scan all photos in `dataset` directory\n\nAre you sure?")
 
     if re_init == "yes":
-        member_num = image_to_vector.gen_vector_initialize(0.3)
+        member_num = gen_vec_start(0.3)
 
         # -1 is required, since one of the identities is unknown
         member.num = member_num - 1
@@ -53,6 +58,6 @@ def restart(member, label):
         label.config(text = "Total number of member: " + str(member.num))
 
         if member.num > 0:
-            training.svm()
-            training.knn()
-            training.rf()
+            train_svm()
+            train_knn()
+            train_rf()

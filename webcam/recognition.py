@@ -12,6 +12,7 @@ import pickle
 import time
 import sys
 
+
 def svm(vector, recognizer, le, max_elapsed):
     '''
     Face recognition by SVM

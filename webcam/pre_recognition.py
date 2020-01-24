@@ -9,9 +9,6 @@ import cv2
 import time
 
 
-
-
-
 def extract_vector(face, embedder, max_elapsed=None):
     '''
     Extract 128-d vector from a face
@@ -50,8 +47,6 @@ def extract_vector(face, embedder, max_elapsed=None):
             max_elapsed = elapsed
 
     return vector, max_elapsed
-
-
 
 
 
@@ -96,6 +91,3 @@ def locate_faces(image, detector, max_elapsed=None):
             max_elapsed = elapsed
     
     return detections, max_elapsed
-
-
-
