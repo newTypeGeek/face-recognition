@@ -75,39 +75,8 @@ def face_reco_video(min_prob_filter, method):
     else:
         print("Face recognition method does not exist")
         return -1
+
  
-
-    # NOTE: To handle non-consecutive image naming
-    # For example, the current image file names might be 
-    # ['0001.jpg', '0004.jpg', '0006.jpg, 0007.jpg']
-    # 
-    # When taking photos, the new naming should first use this set
-    # 0000.jpg, 0002.jpg, 0003.jpg, 0005.jpg
-    #
-    # then, followed by
-    # 0008.jpg, 0009.jpg, 0010.jpg ... and so on
-    
-    result_path = os.path.join("result", method)
-    if not os.path.isdir(result_path):
-        os.makedirs(result_path)
-    image_exist = [x for x in os.listdir(result_path) if not x.startswith('.')]
-    num_image_exist = len(image_exist)
-    idx_required = []
-    idx_max = 0
-
-    # Check if there are images in result_path
-    if num_image_exist > 0:
-        # Convert all photos name to integer value
-        idx = [0 if image == "0000.jpg" else int(os.path.splitext(image)[0].lstrip('0')) for image in image_exist]
-        idx_max = max(idx)
-        
-        # Find the missing integer between 0 to n (inclusive)
-        # These indices would be used for saving the image first
-        all_idx = list(range(0, idx_max+1))
-        idx_required = sorted( list(set(all_idx).difference(set(idx))) )
-        idx_max = idx_max + 1
-
-
     # Load the ResNet and FaceNet CNN
     detector = load_cnn.resnet()
     embedder = load_cnn.facenet()
@@ -116,12 +85,12 @@ def face_reco_video(min_prob_filter, method):
     max_vector_time = 0
     max_recog_time = 0
 
-
     vs = VideoStream(src=0).start()
     cv2.namedWindow(frame_name)
     cv2.moveWindow(frame_name, 500, 200)
     img_num = 0
 
+    # Start the webcam for face recognition
     while True:
         frame = vs.read()
 
@@ -134,8 +103,9 @@ def face_reco_video(min_prob_filter, method):
         frame = imutils.resize(frame, width=720)
         (h, w) = frame.shape[:2]
 
-
-
+        # To be displayed on the screen
+        # The score of face recognition
+        # The name of the identity
         score = None
         name = None
 
@@ -147,8 +117,7 @@ def face_reco_video(min_prob_filter, method):
             confidence = detections[0, 0, i, 2]
 
             # Filter out weak detection
-            # NOTE: This condition is NOT same
-            #       as image_to_vector.py
+            # NOTE: This condition is NOT same as image_embedding/img_to_vec.py
             if confidence > min_prob_filter:
                 box = detections[0, 0, i, 3:7] * np.array([w, h, w, h])
                 (startX, startY, endX, endY) = box.astype("int")
@@ -158,14 +127,12 @@ def face_reco_video(min_prob_filter, method):
                 (fH, fW) = face.shape[:2]
 
                 # Ensure the face are large enough
-                # NOTE: It furthers assume that faces
-                #       should not be too small. 
+                # NOTE: It furthers assume that faces should not be too small. 
                 if fW < 20 or fH < 20:
                     continue
 
                 # Extract 128-d vector
                 vector, max_vector_time = pre_recognition.extract_vector(face, embedder, max_vector_time)
-
 
                 if method == "svm":
                     name, score, max_recog_time = recognition.svm(vector, recognizer, le, max_recog_time)
@@ -175,7 +142,6 @@ def face_reco_video(min_prob_filter, method):
 
                 elif method == "rf":
                     name, score, max_recog_time = recognition.rf(vector, recognizer, le, max_recog_time)
-
 
                 elif method == "pearson":
                     name, score, max_recog_time = recognition.pearson(vector, vectors, labels, max_recog_time)
@@ -201,12 +167,6 @@ def face_reco_video(min_prob_filter, method):
 
         frame_with_text = np.copy(frame)
 
-        text = "Number of image captured = " + str(img_num)
-        cv2.putText(frame_with_text, text, (50, 300), cv2.FONT_HERSHEY_TRIPLEX, 0.8, (255, 255, 0), 2)
- 
-        text = "Press SPACEBAR to capture"
-        cv2.putText(frame_with_text, text, (50, 340), cv2.FONT_HERSHEY_TRIPLEX, 0.8, (255, 0, 255), 2)
- 
         text = "Press ESC to exit"
         cv2.putText(frame_with_text, text, (50, 380), cv2.FONT_HERSHEY_TRIPLEX, 0.8, (0, 128, 0), 2)
        
@@ -224,20 +184,6 @@ def face_reco_video(min_prob_filter, method):
         # ESC is pressed
         if key % 256 == 27:
             break
-
-        # SPACEBAR is pressed
-        elif key % 256 == 32:
-            if len(idx_required) > 0:
-                name = str(idx_required.pop(0)).zfill(4)
-            else:
-                name = str(idx_max).zfill(4)
-                idx_max += 1
-           
-            img_name = os.path.join(result_path, name + ".jpg")
-            cv2.imwrite(img_name, frame)
-            img_num += 1
-            print("Image saved at " +  img_name)
-            
 
 
     cv2.destroyAllWindows()
