@@ -47,7 +47,7 @@ def restart(member, label):
         Extract 128-d vectors from ALL photos
     '''
  
-    re_init = messagebox.askquestion("Re-Initialization", "Remove all machine learning files in `output` directory\nRe-scan all photos in `dataset` directory\n\nAre you sure?")
+    re_init = messagebox.askquestion("Re-Initialization", "Remove all 128-d vectors and trained classifiers \n\nAre you sure?")
 
     if re_init == "yes":
         member_num = gen_vec_start(0.3)
