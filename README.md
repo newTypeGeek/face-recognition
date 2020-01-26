@@ -82,3 +82,15 @@ This procedure also occurs when the program starts (i.e. `$ python3 main.py`)*
 
 6. `load_data`<br>
    A package to load 128-d vectors, trained machine learning models, and pre-trained CNN models
+
+7. `dataset`<br>
+   A directory to store photos for each identity
+
+8. `face_detection_model`<br>
+   A directory to store a pre-trained face detection model (ResNet)
+   
+9. `embeddings`<br>
+   A directory to store a pre-trained face embedding model (FaceNet), and 128-d vectors
+   
+10. `classifier_model`<br>
+   A directory to store trained classifiers (SVM, KNN, Random Forest)
