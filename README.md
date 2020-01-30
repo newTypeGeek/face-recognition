@@ -59,8 +59,6 @@ This procedure also occurs when the program starts (i.e. `$ python3 main.py`)*
 
 6. **Quit** button closes the program immediately.
 
-## AN UPDATED README IS IN PROGRESS
-
 # Project Structure
 1. `main.py`<br>
    The main program to be executed by Python Interpreter. It consists of `Tkinter` GUI design.
@@ -94,3 +92,7 @@ This procedure also occurs when the program starts (i.e. `$ python3 main.py`)*
    
 10. `classifier_model`<br>
    A directory to store trained classifiers (SVM, KNN, Random Forest)
+
+
+# REMARK
+Considering to re-organise the package and write some of the codes in OO
